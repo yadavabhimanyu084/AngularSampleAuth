@@ -1,0 +1,45 @@
+﻿<div class="container">
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+        <mat-card>
+            <mat-card-header>
+                <mat-card-title>Register </mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+                <mat-form-field appearance="outline" floatLabel="always">
+                    <mat-label for="firstName">First Name</mat-label>
+                    <input matInput type="text" formControlName="firstName"/>
+                    <mat-error *ngIf="f.firstName.hasError('required')">First Name is required</mat-error>
+                </mat-form-field>
+                <mat-form-field appearance="outline" floatLabel="always">
+                    <mat-label for="lastName">Last Name</mat-label>
+                    <input matInput type="text" formControlName="lastName"/>
+                    <mat-error *ngIf="f.lastName.hasError('required')">Last Name is required</mat-error>
+                </mat-form-field>
+                <mat-form-field appearance="outline" floatLabel="always">
+                    <mat-label for="email">Email</mat-label>
+                    <input matInput type="text" formControlName="email"/>
+                    <mat-error *ngIf="f.email.hasError('required')">Email is required</mat-error>
+                </mat-form-field>
+                <mat-form-field appearance="outline" floatLabel="always">
+                    <mat-label for="password">Password</mat-label>
+                    <input matInput type="password" formControlName="password" />
+                    <mat-error *ngIf="f.password.hasError('required')">Password is required</mat-error>
+                    <mat-error *ngIf="f.password.hasError('minlength') && !f.password.hasError('required')">Password must be at
+                        least 6 characters</mat-error>
+                </mat-form-field>
+                <mat-form-field appearance="outline" floatLabel="always">
+                    <mat-label>Role</mat-label>
+                    <mat-select formControlName="roles" multiple>
+                        <mat-option *ngFor="let role of roleList" [value]="role">{{role}}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </mat-card-content>
+            <mat-card-actions>
+                <button mat-flat-button color="primary" type="submit" [disabled]="!form.valid">
+                    Register
+                </button>
+                <a routerLink="../login" mat-stroked-button>Cancel</a>
+            </mat-card-actions>
+        </mat-card>
+    </form>
+</div>
