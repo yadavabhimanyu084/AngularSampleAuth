@@ -6,3 +6,8 @@ export class UserRegistration {
     userTypId: string;
     moduleIds: string;
 }
+
+export class UserLogin {
+    emailId: string;
+    password: string;
+}
