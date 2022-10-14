@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { UserLogin } from 'src/app/_models/user.model';
 import { UserService } from 'src/app/_services/user.service';
 
@@ -11,7 +12,7 @@ import { UserService } from 'src/app/_services/user.service';
 export class LoginComponent implements OnInit {
   form: FormGroup;
   submitted = false;
-  constructor(private formBuilder: FormBuilder,private userSerivce:UserService) { }
+  constructor(private formBuilder: FormBuilder,private userService:UserService,private router: Router) { }
 
   ngOnInit(): void {
     this.form = this.formBuilder.group({
@@ -32,8 +33,20 @@ export class LoginComponent implements OnInit {
     userLogin.emailId = this.form.controls["email"].value;
     userLogin.password = this.form.controls["password"].value;
     console.log(userLogin)
-    this.userSerivce.login(userLogin).subscribe((response:any)=>{
-
+    this.userService.login(userLogin).subscribe((response:any)=>{
+      if(!response.Haserror)
+      {
+        const User = JSON.stringify(response.ReturnData);
+        localStorage.setItem('response', User); //use different object
+        // Save allEntries back to local storage
+        
+       // localStorage.setItem("response",JSON.stringify(response.ReturnData));
+        this.router.navigate(['/layout/account']);
+      }
+      else
+      {
+        alert("Invalid credentials");
+      }
     })
   }
 

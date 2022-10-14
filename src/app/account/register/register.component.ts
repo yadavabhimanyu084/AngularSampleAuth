@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { UserRegistration } from 'src/app/_models/user.model';
 import { UserService } from 'src/app/_services/user.service';
 
@@ -11,10 +12,10 @@ import { UserService } from 'src/app/_services/user.service';
 export class RegisterComponent implements OnInit {
   form: FormGroup;
   submitted = false;
-  roleList: any[] = [{ Id: 1, value: "admin" }, { Id: 2, value: "Normal User" }];
-  modulelist: any[] = [{ Id: 1, value: "Payment Module" }, { Id: 2, value: "Management Module" }, { Id: 3, value: "Task Module" }]
+  roleList: any[] = [{ Id: 1, value: "Admin" }, { Id: 2, value: "Normal User" }];
+  modulelist: any[] = [{ Id: 1, value: "Dashboard" }, { Id: 2, value: "Signup" }, { Id: 3, value: "Customer Journey" }, { Id: 4, value: "Company Verification" }, { Id: 5, value: "Call Center" }, { Id: 6, value: "Company" }, { Id: 7, value: "Vendors" }, { Id: 8, value: "Claim Against" }, { Id: 7, value: "Defaulter" }, { Id: 9, value: "Published Conpanies" }, { Id: 10, value: "Subscription Management" }, { Id: 11, value: "Web Subscriber" }]
 
-  constructor(private formBuilder: FormBuilder,private userSerivce:UserService) { 
+  constructor(private formBuilder: FormBuilder,private userService:UserService,private router:Router) { 
 }
 
   ngOnInit() {
@@ -46,8 +47,13 @@ export class RegisterComponent implements OnInit {
     const moduleIds = this.form.controls["modules"].value;
     userRegistration.moduleIds = moduleIds.toString();
     console.log(userRegistration)
-    this.userSerivce.register(userRegistration).subscribe((response:any)=>{
-
+    this.userService.register(userRegistration).subscribe((response:any)=>{
+      if(!response.Haserror)
+      {
+        this.router.routeReuseStrategy.shouldReuseRoute = function () {
+          return false;
+        };
+      }
     })
   }
 

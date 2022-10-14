@@ -15,6 +15,10 @@ export class UserService {
   }
 
   login(login:UserLogin){
-    return this.http.post(this.url+"apiZycaraAdmin/UserLogin",login);
+    return this.http.post(this.url+"api/ZycaraAdmin/Login",login);
+  }
+
+  getUsers(){
+    return this.http.get(this.url+"api/ZycaraAdmin/GetAllUser");
   }
 }

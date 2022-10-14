@@ -11,12 +11,15 @@ import { MatInputModule } from '@angular/material/input';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSelectModule } from '@angular/material/select';
+import { MatTableModule } from '@angular/material/table';
+import { UserListComponent } from './user-list/user-list.component';
 
 @NgModule({
   declarations: [
     RegisterComponent,
     LoginComponent,
-    LayoutComponent
+    LayoutComponent,
+    UserListComponent
   ],
   imports: [
     CommonModule,
@@ -27,7 +30,8 @@ import { MatSelectModule } from '@angular/material/select';
     MatFormFieldModule,
     MatInputModule,
     MatButtonModule,
-    MatSelectModule
+    MatSelectModule,
+    MatTableModule
   ]
 })
 export class AccountModule { }
